@@ -30,5 +30,29 @@ public class Appointment {
         Random random = new Random();
         return 1000 + random.nextInt(9000);
     }
+     public int getId() {
+        return id;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public boolean isBooked() {
+        return isBooked;
+    }
+}
 }
 
