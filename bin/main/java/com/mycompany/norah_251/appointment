@@ -21,8 +21,7 @@ public class Appointment {
         Random random = new Random();
         return 1000 + random.nextInt(9000);
     }
-
-       public int getId() {
+     public int getId() {
         return id;
     }
 
@@ -44,9 +43,12 @@ public class Appointment {
 
     public boolean isBooked() {
         return isBooked;
-    }
+    }
+}
+public class Appointment {
+    // ... (fields and constructor omitted for brevity)
 
-        public void displayAppointment() {
+    public void displayAppointment() {
         System.out.println("Appointment ID: " + id);
         System.out.println("Date: " + date);
         System.out.println("Time: " + time);
@@ -55,3 +57,28 @@ public class Appointment {
         System.out.println("----------------------");
     }
 }
+
+public class Appointment {
+    // ... (fields and constructor omitted for brevity)
+
+    public String toFileString() {
+        return id + "," + date + "," + time + "," + location + "," + isBooked + "," + customerName;
+    }
+
+    public static Appointment fromFileString(String line) {
+        try {
+            String[] parts = line.split(",");
+            if (parts.length < 6) return null;
+            Appointment appointment = new Appointment(parts[1], parts[2], parts[3]);
+            appointment.id = Integer.parseInt(parts[0]);
+            appointment.isBooked = Boolean.parseBoolean(parts[4]);
+            appointment.customerName = parts[5];
+            return appointment;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+}
+
+}
+
