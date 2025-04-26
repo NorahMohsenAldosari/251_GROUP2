@@ -24,6 +24,49 @@ public class AppointmentManager {
         return loadAppointmentsFromFile(AVAILABLE_FILE);
     }
 
+
+    public boolean bookAppointment(int id, String customerName, String phoneNumber) {
+       
+        List<Appointment> appointments = loadAppointmentsFromFile();
+    
+        for (int i = 0; i < appointments.size(); i++) {
+            Appointment app = appointments.get(i);
+    
+            if (app.getId() == id && !app.isBooked()) {
+                app.book(customerName, phoneNumber);
+                overwriteAppointmentsToFile(appointments);
+                return true;
+            }
+        }
+    
+        return false;
+    }
+    
+
+    
+    public boolean cancelAppointment(int id) {
+        
+        List<Appointment> appointments = loadAppointmentsFromFile();
+    
+        for (int i = 0; i < appointments.size(); i++) {
+            Appointment app = appointments.get(i);
+    
+            if (app.getId() == id && app.isBooked()) {
+
+                app.cancel();
+                overwriteAppointmentsToFile(appointments);
+                return true;
+
+            }
+        }
+    
+        return false;
+    }
+
+
+
+    
+
     private void saveAppointmentToFile(Appointment app, String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true))) {
             writer.write(app.toFileString());
