@@ -49,6 +49,15 @@ public class Appointment {
             public boolean isBooked() {
                 return isBooked;
             }
+
+            public void displayAppointment() {
+            System.out.println("Appointment ID: " + id);
+            System.out.println("Date: " + date);
+            System.out.println("Time: " + time);
+            System.out.println("Location: " + location);
+            System.out.println("Customer: " + (isBooked ? customerName : "Available"));
+            System.out.println("----------------------");
+            }
         }
     
 
