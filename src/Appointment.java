@@ -58,6 +58,20 @@ public class Appointment {
             System.out.println("Customer: " + (isBooked ? customerName : "Available"));
             System.out.println("----------------------");
             }
+
+            public static Appointment fromFileString(String line) {
+            try {
+            String[] parts = line.split(",");
+            if (parts.length < 6) return null;
+                Appointment appointment = new Appointment(parts[1], parts[2], parts[3]);
+                appointment.id = Integer.parseInt(parts[0]);
+                appointment.isBooked = Boolean.parseBoolean(parts[4]);
+                appointment.customerName = parts[5];
+                return appointment;
+            } catch (Exception e) {
+                return null;
+               }
+            }
         }
     
 
