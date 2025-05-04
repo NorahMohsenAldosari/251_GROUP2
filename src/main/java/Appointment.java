@@ -1,32 +1,30 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+package ass.main;
 
-/**
- *
- * @author nora
- */
 import java.util.Random;
-
-
 
 public class Appointment {
     private int id;
     private String customerName;
+    private String phoneNumber;
     private String date;
     private String time;
     private String location;
     private boolean isBooked;
+    private String feedback;
 
     public Appointment(String date, String time, String location) {
         this.id = generateRandomId();
         this.customerName = "Not booked";
+        this.phoneNumber = "None";
         this.date = date;
         this.time = time;
         this.location = location;
         this.isBooked = false;
+        this.feedback = "";
     }
 
     private int generateRandomId() {
@@ -34,82 +32,60 @@ public class Appointment {
         return 1000 + random.nextInt(9000);
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setIsBooked(boolean isBooked) {
-        this.isBooked = isBooked;
-    }
-
-     public int getId() {
+    public int getId() {
         return id;
     }
+    
+    public String getDate() {
+    return date;
+}
+
+public String getTime() {
+    return time;
+}
+
+public String getLocation() {
+    return location;
+}
+
 
     public String getCustomerName() {
         return customerName;
     }
 
-    public String getDate() {
-        return date;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public boolean isIsBooked() {
+    public boolean isBooked() {
         return isBooked;
     }
-     
-    public void displayAppointment() {
-        System.out.println("Appointment ID: " + id);
-        System.out.println("Date: " + date);
-        System.out.println("Time: " + time);
-        System.out.println("Location: " + location);
-        System.out.println("customer: " + (isBooked ? customerName : "Available"));
-        System.out.println("----------------------");
+
+    public void bookAppointment(String customerName, String phoneNumber) {
+        this.customerName = customerName;
+        this.phoneNumber = phoneNumber;
+        this.isBooked = true;
     }
 
-
-
-    public String toFileString() {
-        return id + "," + date + "," + time + "," + location + "," + isBooked + "," + customerName;
+    public void cancelBooking() {
+        this.customerName = "Not booked";
+        this.phoneNumber = "None";
+        this.isBooked = false;
     }
 
-    public static Appointment fromFileString(String line) {
-        try {
-            String[] parts = line.split(",");
-            if (parts.length < 6) return null;
-            Appointment appointment = new Appointment(parts[1], parts[2], parts[3]);
-            appointment.id = Integer.parseInt(parts[0]);
-            appointment.isBooked = Boolean.parseBoolean(parts[4]);
-            appointment.customerName = parts[5];
-            return appointment;
-        } catch (Exception e) {
-            return null;
-        }
+    public void addFeedback(String feedback) {
+        this.feedback = feedback;
     }
+
+    public String getFeedback() {
+        return feedback.isEmpty() ? "No feedback yet." : feedback;
+    }
+
+    @Override
+    public String toString() {
+        return "Appointment ID: " + id + ", Date: " + date + ", Time: " + time +
+               ", Location: " + location + ", Booked: " + (isBooked ? "Yes" : "No") +
+               (isBooked ? (", Customer: " + customerName + ", Phone: " + phoneNumber) : "");
+    }
+
 }
-
-
